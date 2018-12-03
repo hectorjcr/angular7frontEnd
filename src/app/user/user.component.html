@@ -1,3 +1,128 @@
-<p>
-  user works!
-</p>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-4 col-lg-3 col-sm-6">
+      <form name="form" #f="ngForm" (submit)="f.form.valid && sendUser()">
+        <div class="form-group">
+          <input type="text"
+                 id="firstName"
+                 class="form-control"
+                 name="firstName"
+                 placeholder="nombre"
+                 #firstName="ngModel"
+                 [(ngModel)]="model.firstName"
+                 [ngClass]="{'is-valid':f.submitted && firstName.invalid}"
+                 required >
+          <!-- input validation group la clase invalid-input esta definida en el css del componente-->
+          <div *ngIf="f.submitted && firstName.invalid" class="invalid-input">
+            <!-- individual validation errors -->
+            <div *ngIf="firstName.errors?.required">nombre invalido</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 id="lastName"
+                 class="form-control"
+                 name="lastName"
+                 placeholder="apellido"
+                 #lastName="ngModel"
+                 [(ngModel)]="model.lastName"
+                 [ngClass]="{'is-valid':f.submitted && lastName.invalid}"
+                 required
+          >
+          <!-- input validation group la clase invalid-input esta definida en el css del componente-->
+          <div *ngIf="f.submitted && lastName.invalid" class="invalid-input">
+            <!-- individual validation errors -->
+            <div *ngIf="lastName.errors?.required">apellido invalido</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 id="emailId"
+                 class="form-control"
+                 name="emailId"
+                 placeholder="email"
+                 #emailId="ngModel"
+                 [(ngModel)]="model.emailId"
+                 [ngClass]="{'is-valid':f.submitted && emailId.invalid}"
+                 required email
+          >
+          <!-- input validation group la clase invalid-input esta definida en el css del componente-->
+          <div *ngIf="f.submitted && emailId.invalid" class="invalid-input">
+            <!-- individual validation errors -->
+            <div *ngIf="emailId.errors?.required">email es requerido</div>
+            <div *ngIf="emailId.errors?.email">email invalido</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 id="createdBy"
+                 class="form-control"
+                 name="createdBy"
+                 placeholder="creado por"
+                 #createdBy="ngModel"
+                 [(ngModel)]="model.createdBy"
+                 [ngClass]="{'is-valid':f.submitted && createdBy.invalid}"
+                 required
+          >
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 id="createdAt"
+                 class="form-control"
+                 name="createdAt"
+                 placeholder="fecha de creación"
+                 [(ngModel)]="model.createdAt"
+          >
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 id="updatedBy"
+                 class="form-control"
+                 name="updatedBy"
+                 placeholder="actualizado por"
+                 #updatedBy="ngModel"
+                 [(ngModel)]="model.updatedBy"
+                 [ngClass]="{'is-valid':f.submitted && updatedBy.invalid}"
+                 required
+          >
+        </div>
+        <div class="form-group">
+          <input type="text"
+                 id="updatedAt"
+                 class="form-control"
+                 name="updatedAt"
+                 placeholder="fecha de actualizacion"
+                 [(ngModel)]="model.updatedAt"
+          >
+        </div>
+        <input type="submit" class="btn btn-primary pull-right">
+      </form>
+    </div>
+  <div class="col-md-8 col-lg-9 col-sm-6">
+    <table class="table table-bordered table-hover table-responsive table-sm">
+      <thead>
+        <tr>
+          <th>Nombres</th>
+          <th>email</th>
+          <th>created by</th>
+          <th>created at</th>
+          <th>updated by</th>
+          <th>updated at</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of usuarios" (click)="getUser(user)">
+          <td>{{ user.firstName }} {{user.lastName }}</td>
+          <td>{{ user.emailId }}</td>
+          <td>{{ user.createdBy }}</td>
+          <td>{{ user.createdAt }}</td>
+          <td>{{ user.updatedBy }}</td>
+          <td>{{ user.updatedAt }}</td>
+          <td><a class="btn btn-danger" (click)="delete(user)"><i class="fa fa-trash"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
